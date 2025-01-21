@@ -20,6 +20,23 @@ public class TaskData {
         this.unassignedTasks = unassignedTasks;
     }
 
+    public Set<Task> getAnnsTasks() {
+        return annsTasks;
+    }
+
+    public Set<Task> getBobsTasks() {
+        return bobsTasks;
+    }
+
+    public Set<Task> getCarolsTasks() {
+        return carolsTasks;
+    }
+
+    public Set<Task> getUnassignedTasks() {
+        return unassignedTasks;
+    }
+
+
     // return value is Set<Task>
     public Set<Task> getTasks(String name) {
         name = name.toLowerCase();
@@ -32,34 +49,38 @@ public class TaskData {
                 return this.carolsTasks;
             case "all":
                 return getUnion(annsTasks,bobsTasks,carolsTasks);
+            default:
+                return null;
         }
-        return new HashSet<>();
     }
 // Union (birleşim) >>> Task setlerinden oluşan listeyi parametre olarak alır.
 // return value is union of all sets
 
-    public Set<Task> getUnion(Set<Task> ...sets) {
+    @SafeVarargs
+    public final Set<Task> getUnion(Set<Task>... sets) {
         HashSet<Task> union = new LinkedHashSet<>();
         for (Set<Task> taskSet: sets) {
             union.addAll(taskSet);
         }
+
         return union;
     }
 
 
 
 // Intersection (kesişim) >> return value is intersection of set1 + set2
-
-public Set<Task> getIntersection(Set<Task> set1, Set<Task> set2) {
-        Set<Task> intersect = new HashSet<>(set1);
-        intersect.retainAll(set2);
-        return intersect;
+// iki kümede ortak olanları intersect(yeni küme) olarak çıkar dön.
+public Set<Task> getIntersection(Set<Task> first, Set<Task> second){
+    Set<Task> intersections = new HashSet<>(first);
+    intersections.retainAll(second);
+    return  intersections;
 }
 
 
 
 //Difference (fark) >>> return value is diff of set2 from set1
-    // set1'de olup set2'de olmayanlar
+    // set1'de olup set2'de olmayanlar ( a'da olup b'de olmayanlar)
+//firstte olup secondda olmayanları difference 'ye atıp dön.
     public  Set<Task> getDifferences(Set<Task> set1, Set<Task> set2)  {
         Set<Task> difference = new HashSet<>(set1);
         difference.removeAll(set2);

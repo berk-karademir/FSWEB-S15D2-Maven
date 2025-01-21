@@ -40,8 +40,6 @@ public class Task {
     }
 
     // uniqueness of Task Class
-
-
     @Override
     public boolean equals(Object o) {
         if (!(o instanceof Task task)) return false;
@@ -55,12 +53,11 @@ public class Task {
 
     @Override
     public String toString() {
-        return "\n"+
-                getAssignee() + "'s" + " task's" + "\n" +
+        return  assignee + "'s" + " task's" + "\n" +
                 "Project: " + project + "\n" +
                 "Descripton: " + description + "\n" +
                 "Status: " + status + "\n" +
-                "Priority: " + priority + "\n---------------------------------------";
+                "Priority: " + priority + "\n";
 
 
     }
